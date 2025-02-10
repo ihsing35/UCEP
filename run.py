@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import csv
 from flask import Flask, render_template
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -184,7 +185,9 @@ if output_web:
                 for row in reader:
                     data.append(row)
         scenario_keys = list(scenarios.keys())
-        return render_template('results.html', data=data, scenarios=scenario_keys, years=years.tolist())
+        # Get current time
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return render_template('results.html', data=data, scenarios=scenario_keys, years=years.tolist(), creation_time=current_time)
 
     if __name__ == '__main__':
         app.run(debug=True)
