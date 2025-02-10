@@ -69,9 +69,9 @@ These three files store the parameter adjustment information for each five - yea
 pip install flask numpy matplotlib
 ```
 2. **Configure Parameters**: Modify the `model_parameters.csv` file according to your needs to set the initial parameters and output forms.
-3. **Run the Program**: Execute the `app.py` script in the terminal:
+3. **Run the Program**: Execute the `run.py` script in the terminal:
 ```bash
-python app.py
+python run.py
 ```
 4. **View Results**:
     - **CSV Results**: If `output_csv` is set to `1`, you can find the simulation results in the `carbon_emission_results.csv` file.
