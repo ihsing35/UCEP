@@ -21,47 +21,47 @@ carbon_emission_prediction/
 
 ### 3. Key Files and Their Functions
 
-#### 3.1 `run.py`
-- **Function**: This is the main Python script that implements the carbon emission prediction model. It reads parameter data from CSV files, runs simulations for different scenarios, and controls the output forms based on the settings in `model_parameters.csv`.
-- **Steps**:
-    1. **Read Initial Parameters**: Reads initial model parameters from `model_parameters.csv`, including starting year, initial population, GDP per capita, etc., as well as the settings for output forms (`output_csv`, `output_image`, `output_web`).
-    2. **Scenario Simulation**: Loops through different scenarios (Base, Low - Carbon, Zero - Carbon), reads scenario - specific parameter adjustment files, and conducts simulation calculations for each time step.
-    3. **Output Results**:
+#### 3.1 Main Program File `run.py`
+This is the core file of the program, containing the main logic and simulation process of the model. Its specific functions are as follows:
+- **Parameter Reading**: Reads the initial parameters of the model from the `model_parameters.csv` file, including the start year, initial population, initial GDP per capita, etc.
+- **Scenario Setting**: Defines three scenarios (Base Scenario, Low - Carbon Scenario, and Zero - Carbon Scenario) and reads the parameter adjustment information for each scenario from the corresponding CSV files.
+- **Simulation Calculation**: Based on the read parameters, the program simulates the city's population, GDP, energy consumption, and carbon dioxide emissions year by year. It also adjusts the parameters every five years according to the scenario parameters.
+- **Result Visualization**: Uses the `matplotlib` library to plot the carbon dioxide emission trends under the three scenarios as a line chart, facilitating users to intuitively compare the emission differences under different scenarios.
+- **Output Results**:
         - **CSV Output**: If `output_csv` is set to `1`, it saves the simulation results to `carbon_emission_results.csv`.
         - **Image Generation**: If `output_image` is set to `1`, it uses `matplotlib` to generate a line chart showing the carbon emission trends under different scenarios and saves it as `carbon_emission_results.png` in the `static` directory.
         - **Web Display**: If `output_web` is set to `1`, it starts a Flask application and renders the `results.html` template to display the results on a web page.
 
-#### 3.2 `templates/results.html`
-- **Function**: This is an HTML template used to display the carbon emission prediction results on a web page. It uses the ECharts library to generate a dynamic line chart showing the carbon emission trends under different scenarios.
-- **Key Components**:
-    - **CSS Styling**: Defines the layout and style of the web page, including the font, background color, and chart container style.
-    - **ECharts Integration**: Imports the ECharts library from a CDN and uses JavaScript to initialize an ECharts instance. It then configures the chart options, such as the title, axes, and series data, and displays the chart in the `co2Chart` container.
+#### 3.2 Model Parameter File (`model_parameters.csv`)
+This file stores the initial parameters of the model. Each row contains the following fields:
+| Field Name | Meaning | Example Value |
+| ---- | ---- | ---- |
+| `start_year` | The start year of the simulation | 2020 |
+| `initial_population` | The urban population at the start year | 1000000 |
+| `initial_gdp_per_capita` | The GDP per capita at the start year | 50000 |
+| `initial_energy_intensity` | The energy intensity (energy consumption per unit of GDP) at the start year | 0.5 |
+| `initial_fossil_fuel_ratio` | The proportion of fossil fuels at the start year | 0.8 |
+| `initial_co2_emission` | The cumulative carbon dioxide emissions at the start year | 0 |
+| `population_growth_rate` | The population growth rate | 0.01 |
+| `gdp_growth_rate` | The GDP growth rate | 0.03 |
+| `energy_intensity_decrease_rate` | The decreasing rate of energy intensity | 0.02 |
+| `fossil_fuel_decrease_rate` | The decreasing rate of the proportion of fossil fuels | 0.01 |
+| `carbon_emission_factor` | The carbon emission factor of fossil fuels | 2.5 |
 
-#### 3.3 `model_parameters.csv`
-- **Function**: Stores the initial parameters for the carbon emission prediction model and the settings for output forms.
-- **Sample Content**:
-```plaintext
-start_year,initial_population,initial_gdp_per_capita,initial_energy_intensity,initial_fossil_fuel_ratio,initial_co2_emission,population_growth_rate,gdp_growth_rate,energy_intensity_decrease_rate,fossil_fuel_decrease_rate,carbon_emission_factor,output_csv,output_image,output_web
-2020,1000000,50000,0.5,0.8,0,0.01,0.03,0.02,0.01,2.5,1,1,1
-```
-- **Field Explanation**:
-    - `start_year`: The starting year of the simulation.
-    - `initial_population`: The initial population of the city.
-    - `initial_gdp_per_capita`: The initial GDP per capita.
-    - `initial_energy_intensity`: The initial energy intensity.
-    - `initial_fossil_fuel_ratio`: The initial proportion of fossil fuels in energy consumption.
-    - `initial_co2_emission`: The initial carbon dioxide emission.
-    - `population_growth_rate`: The population growth rate.
-    - `gdp_growth_rate`: The GDP growth rate.
-    - `energy_intensity_decrease_rate`: The rate of decrease in energy intensity.
-    - `fossil_fuel_decrease_rate`: The rate of decrease in the proportion of fossil fuels.
-    - `carbon_emission_factor`: The carbon emission factor.
-    - `output_csv`: Whether to output the results to a CSV file (`1` for yes, `0` for no).
-    - `output_image`: Whether to generate an image of the emission trend (`1` for yes, `0` for no).
-    - `output_web`: Whether to display the results on a web page (`1` for yes, `0` for no).
+#### 3.3 Scenario Parameter Files
+- **Base Scenario File (`base_scenario.csv`)**
+- **Low - Carbon Scenario File (`low_carbon_scenario.csv`)**
+- **Zero - Carbon Scenario File (`zero_carbon_scenario.csv`)**
 
-#### 3.4 `base_scenario.csv`, `low_carbon_scenario.csv`, `zero_carbon_scenario.csv`
-- **Function**: These files store the parameter adjustment factors for different scenarios at specific years. For example, they can adjust the population growth rate, GDP growth rate, etc., in different scenarios to simulate different development paths.
+These three files store the parameter adjustment information for each five - year period under the three scenarios respectively. Each row contains the following fields:
+| Field Name | Meaning | Example Value |
+| ---- | ---- | ---- |
+| `year` | The specific year for parameter adjustment | 2025 |
+| `population_growth_rate_factor` | The adjustment coefficient for the population growth rate | 0.95 |
+| `gdp_growth_rate_factor` | The adjustment coefficient for the GDP growth rate | 0.98 |
+| `energy_intensity_decrease_rate_factor` | The adjustment coefficient for the decreasing rate of energy intensity | 1.05 |
+| `fossil_fuel_decrease_rate_factor` | The adjustment coefficient for the decreasing rate of the proportion of fossil fuels | 1.05 |
+
 
 ### 4. How to Use
 1. **Environment Setup**: Make sure you have Python installed, along with the required libraries such as `Flask`, `numpy`, and `matplotlib`. You can install them using the following command:
