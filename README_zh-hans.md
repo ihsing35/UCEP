@@ -1,3 +1,7 @@
+# Urban Carbon Emission Prediction Model
+
+[English](https://github.com/ihsing35/ucep/blob/main/README.md)
+
 ### 1. 概述
 该模型用于预测一个城市的碳排放。它运用系统动力学模型，对不同情景（包括基准情景、低碳情景和零碳情景）下的城市二氧化碳排放量进行预测。该系统从 CSV 文件中读取参数数据，开展模拟运算，并能以三种形式输出结果：将数据保存为 CSV 文件、生成排放趋势图像，以及在网页上展示结果。用户可通过修改 `model_parameters.csv` 文件来调整输出形式。
 
