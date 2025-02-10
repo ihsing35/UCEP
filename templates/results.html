@@ -1,0 +1,90 @@
+<!-- 
+  Author: ihsing35
+  Creation Time: {{ creation_time }}
+  Description: This HTML page is used to display the city carbon emission prediction results. 
+               It shows a dynamic line chart using the ECharts library to visualize the CO2 
+               emission trends under different scenarios.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Carbon Emission Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #co2Chart {
+            width: 1200px; /* Set the chart width to 1200px */
+            height: auto;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background-color: white;
+        }
+    </style>
+    <!-- Import the ECharts library -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+</head>
+
+<body>
+    <h1>City Carbon Emission Prediction Results</h1>
+    <!-- Define the ECharts chart container -->
+    <div id="co2Chart" style="height: 600px;"></div>
+    <script>
+        // Get the data passed from Flask
+        const scenarios = {{ scenarios|tojson }};
+        const years = {{ years|tojson }};
+        const data = {{ data|tojson }};
+
+        // Initialize the ECharts instance
+        const myChart = echarts.init(document.getElementById('co2Chart'));
+
+        // Build the ECharts configuration item
+        const option = {
+            title: {
+                text: 'City CO2 Emission Prediction under Different Scenarios',
+                left: 'center', // Center the title horizontally
+                bottom: 10 // Place the title 10px from the bottom
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: scenarios
+            },
+            xAxis: {
+                type: 'category',
+                data: years
+            },
+            yAxis: {
+                type: 'value',
+                name: 'CO2 Emission (tons)'
+            },
+            series: scenarios.map((scenario) => {
+                const emissionData = data.map((row) => parseFloat(row[scenario]));
+                return {
+                    name: scenario,
+                    type: 'line',
+                    data: emissionData
+                };
+            })
+        };
+
+        // Display the chart using the configuration item
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>
