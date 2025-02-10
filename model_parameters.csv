@@ -1,0 +1,2 @@
+start_year,initial_population,initial_gdp_per_capita,initial_energy_intensity,initial_fossil_fuel_ratio,initial_co2_emission,population_growth_rate,gdp_growth_rate,energy_intensity_decrease_rate,fossil_fuel_decrease_rate,carbon_emission_factor,output_csv,output_image,output_web
+2020,1000000,50000,0.5,0.8,0,0.01,0.03,0.02,0.01,2.5,1,1,1
