@@ -1,5 +1,7 @@
 # Urban Carbon Emission Prediction Model
 
+[中文说明](https://github.com/ihsing35/ucep/blob/main/README_zh-hans.md)
+
 ### 1.  Overview
 This model is an urban carbon emission prediction system. It uses a system dynamics model to forecast urban carbon dioxide emissions under different scenarios, including the Base Scenario, Low - Carbon Scenario, and Zero - Carbon Scenario. The system reads parameter data from CSV files, conducts simulations, and can output results in three forms: saving data to a CSV file, generating an image of the emission trend, and displaying the results on a web page. Users can adjust the output forms by modifying the `model_parameters.csv` file.
 
